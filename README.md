@@ -1,2 +1,10 @@
 # Setup-Lab-
-Run all tests in your own controlled Matomo environment (Docker / source build), then map to CVSS &amp; real-world impact.
+[Our Software]
+↓
+Loading CMP/tracker/config
+↓
+Using IndexedDB/LocalStorage
+↓
+PoC modifying the storage
+↓
+Software failed (error/no consent/broken state)

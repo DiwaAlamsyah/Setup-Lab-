@@ -1,0 +1,386 @@
+{
+  "cmpConfigurationId": "-1kqCPcAF6dglB",
+  "serviceMappings": [
+    {
+      "dpsId": "BJz7qNsdj-7",
+      "trackers": [
+        {
+          "trackerName": "TESTCOOKIESENABLED",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "1",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "LAST_RESULT_ENTRY_KEY",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "ytidb::LAST_RESULT_ENTRY_KEY",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "iU5q-!O9@$",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "#-#",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "databases",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "LogsRequestsStore",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "SWHealthLog",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "TESTCOOKIESENABLED",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "1",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "LAST_RESULT_ENTRY_KEY",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "iU5q-!O9@$",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "#-#",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "databases",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "LogsRequestsStore",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "yt-player-user-settings",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-device-id",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-cast-installed",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-cast-available",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-session-app",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-session-name",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-fast-check-period",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-connected-devices",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "ytidb::LAST_RESULT_ENTRY_KEY",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "SWHealthLog",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "TESTCOOKIESENABLED",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "1",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "LAST_RESULT_ENTRY_KEY",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "databases",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "LogsRequestsStore",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "SWHealthLog",
+          "storageType": "IndexedDB",
+          "expiry": "persistent",
+          "providerUrl": "https://www.youtube.com"
+        },
+        {
+          "trackerName": "yt-player-user-settings",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-device-id",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-cast-installed",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-cast-available",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-session-app",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-session-name",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-fast-check-period",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "yt-remote-connected-devices",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        },
+        {
+          "trackerName": "ytidb::LAST_RESULT_ENTRY_KEY",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "youtube.com"
+        }
+      ]
+    },
+    {
+      "dpsId": "H1Vl5NidjWX",
+      "trackers": [
+        {
+          "trackerName": "uc_ui_version",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_user_country",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_user_interaction",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_settings",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_gcm",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_tcf",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_ui_version",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_user_country",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_user_interaction",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_settings",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_gcm",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_tcf",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc:analytics:firedEvents:LafvSW71kBFbUw",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_ui_version",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_user_country",
+          "storageType": "HTML Session Storage",
+          "expiry": "session",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_user_interaction",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_settings",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "_ga",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "730",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "_ga_#",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "730",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_gcm",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_tcf",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        },
+        {
+          "trackerName": "uc_interaction_type",
+          "storageType": "HTML Local Storage",
+          "expiry": "persistent",
+          "providerUrl": "eikesplayground.de"
+        }
+      ]
+    },
+    {
+      "dpsId": "8TziAnlg5SJF0U",
+      "trackers": [
+        {
+          "trackerName": "amzn_consent",
+          "storageType": "HTTP Document Cookie",
+          "expiry": "28",
+          "providerUrl": "eikesplayground.de"
+        }
+      ]
+    }
+  ]
+}

